@@ -1,0 +1,66 @@
+<h1>Eat-Da-Burger</h1>
+
+<h3>Add a Burger to Devour</h3>
+<form id="addburger" class="button-size">
+  <textarea type="text" name="burger_name"></textarea>
+  <button type="submit">Add Burger!</button>
+</form>
+
+<h3>My To-Do</h3>
+  <div id="burgersList">
+    <ul>
+      {{#each burgers}}
+      {{#unless devoured}}
+
+      <li>
+      <p>{{this.id}}. {{this.burger_name}}
+          <form action = "/devourburger" method="post">
+          <input type ="hidden" name="burgerId" value = "{{id}}">
+          <button id = "devour" type = "submit">Devour</button>
+          </form>
+      </p>
+      </li>
+      {{/unless}}
+      {{/each}}
+    </ul>
+  </div>
+
+  <h3>Eaten!</h3>
+  <ul id="devouredBurgers">
+  {{#each burgers}}
+  {{#if devoured}}
+
+  <li>{{burger_name}}</li>
+  {{/if}}
+  {{/each}}
+  </ul>
+
+
+
+
+
+
+<script type="text/javascript">
+
+  $("#addburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurger = {
+      burger_name: $("#addburger [name=burger_name]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("added new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+</script>

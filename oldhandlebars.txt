@@ -1,0 +1,47 @@
+<ul>
+  {{#each burgers}}
+    <li>
+      <p>
+        {{this.id}}. {{this.burger_name}}
+
+        <button data-burgerid="{{this.id}}" class="delburger">Devour</button>
+      </p>
+    </li>
+  {{/each}}
+</ul>
+
+<h2>Add a Burger to Devour</h2>
+<form id="addburger" class="button-size">
+	<textarea type="text" name="burger_name"></textarea>
+	<button type="submit">Add Burger!</button>
+</form>
+
+
+<script type="text/javascript">
+  $(".delburger").on("click", function(event) {
+   
+   $("#eatenburgers").text(burger_name);
+  });
+
+  $("#addburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newBurger = {
+      burger_name: $("#addburger [name=burger_name]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("added new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+</script>
