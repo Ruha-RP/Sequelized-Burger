@@ -64,39 +64,28 @@ app.set("view engine", "handlebars");
 //ROUTING
 //=======
 
-//Using express for routing
-app.get("/", function(req,res) {
-	//Displaying all on main page, querying from mysql
-	connection.query("SELECT * FROM burgers", function(err, data) {
-		if (err) {
-			//sends server erro status code
-			return res.status(500).end();
-		}
-		//Using handlebars to render the html page
-		res.render("index", { burgers: data })
-	});
-});
+require("./routes/api-routes.js")(app);
 
-//Creating a new burger
-app.post("/burgers", function(req, res) {
-	//Inserting using mysql
-	connection.query("INSERT INTO burgers (burger_name) VALUES (?)", [req.body.burger_name], function(err, result) {
-		if (err) {
-			//sends server error status code
-			return res.status(500).end();
-		}	
+// //Creating a new burger
+// app.post("/burgers", function(req, res) {
+// 	//Inserting using mysql
+// 	connection.query("INSERT INTO burgers (burger_name) VALUES (?)", [req.body.burger_name], function(err, result) {
+// 		if (err) {
+// 			//sends server error status code
+// 			return res.status(500).end();
+// 		}	
 
-		//Send back the id of the new burger
-		res.json({ id: result.insertId });
-		console.log({ id: result.insertId });
-	});
-});
+// 		//Send back the id of the new burger
+// 		res.json({ id: result.insertId });
+// 		console.log({ id: result.insertId });
+// 	});
+// });
 
 
-//Updating the burger, when devour status changes
-app.post("/devourburger", function(req,res) {
-	//Updating on mysql
-	connection.query("UPDATE burgers SET devoured = true WHERE id = ?", [req.body.burgerId], function(err, response) {
-		res.redirect("/");
-	});
-});
+// //Updating the burger, when devour status changes
+// app.post("/devourburger", function(req,res) {
+// 	//Updating on mysql
+// 	connection.query("UPDATE burgers SET devoured = true WHERE id = ?", [req.body.burgerId], function(err, response) {
+// 		res.redirect("/");
+// 	});
+// });
