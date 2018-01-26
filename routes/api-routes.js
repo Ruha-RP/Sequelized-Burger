@@ -21,5 +21,34 @@ module.exports = function(app) {
 
   });
 
+  //Creating a new burger
+  app.post("/burgers", function(req,res) {
+
+  	db.Sequelizedburger.create({
+  		
+  		burger_name: req.body.burger_name
+
+  	}).then(function(result) {
+
+  		res.json({ id: result.insertId });
+
+  	});
+
+  });
+
 };
 
+// //Creating a new burger
+// app.post("/burgers", function(req, res) {
+// 	//Inserting using mysql
+// 	connection.query("INSERT INTO burgers (burger_name) VALUES (?)", [req.body.burger_name], function(err, result) {
+// 		if (err) {
+// 			//sends server error status code
+// 			return res.status(500).end();
+// 		}	
+
+// 		//Send back the id of the new burger
+// 		res.json({ id: result.insertId });
+// 		console.log({ id: result.insertId });
+// 	});
+// });

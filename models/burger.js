@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
 		//the table columns
 		id: {
 			type: Sequelize.INTEGER,
+			// allowNull: false,
 			primaryKey: true,
 			auto_increment: true
 		},
