@@ -10,6 +10,7 @@ var mysql = require("mysql");
 //================
 //MySQL CONNECTION
 //================
+var db = require("./models");
 
 var connection;
 
@@ -20,7 +21,7 @@ if (process.env.JAWSDB_URL) {
 	host: "localhost",
 	user: "root",
 	password: "root",
-	database: "burgers_db"
+	database: "sequelizedburger_db"
 });
 };
 
@@ -40,9 +41,12 @@ var app = express();
 var PORT = process.env.PORT || 8080;
 
 //Listening
-app.listen(PORT, function() {
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
 	console.log("listening on PORT: ",PORT);
+	});
 });
+
 
 //handling data parsing
 app.use(bodyParser.urlencoded({ extended: true }));

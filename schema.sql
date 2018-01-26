@@ -4,3 +4,5 @@
 DROP DATABASE IF EXISTS sequelizedburger_db;
 -- Creates the "sequelizedburger_db" database --
 CREATE DATABASE sequelizedburger_db
+
+
