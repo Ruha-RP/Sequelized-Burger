@@ -25,9 +25,11 @@ module.exports = function(sequelize, DataTypes) {
 		}
 	});
 	return Sequelizedburger;
+	//syncs with db
+	Sequelizedburger.sync();
 };
 
-// Sequelizedburger.sync();
+
 
 
 
